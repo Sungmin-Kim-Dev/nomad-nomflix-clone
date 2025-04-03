@@ -1,8 +1,5 @@
-
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  return <div style={{backgroundColor: "white", height: "200vh"}}>Home</div>;
+};
 
-export default Home
+export default Home;

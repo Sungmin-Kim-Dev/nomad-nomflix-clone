@@ -2,6 +2,7 @@ import {StrictMode} from "react";
 import {createRoot} from "react-dom/client";
 import App from "./App.tsx";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {theme} from "./theme.ts";
 
 const GlobalStyle = createGlobalStyle`
@@ -36,7 +37,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   font-family: 'SUIT Variable', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
   background-color: black;
@@ -65,11 +66,15 @@ a {
 }
 `;
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

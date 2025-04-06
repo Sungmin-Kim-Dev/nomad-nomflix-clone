@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import {motion, useAnimation, useMotionValueEvent, useScroll} from "motion/react";
+import {motion, useAnimation, useMotionValueEvent, useScroll} from "motion/react";
 import {Link, useMatch} from "react-router";
 import {useState} from "react";
 
+const Nav = styled(motion.nav)`
 const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
@@ -80,6 +82,14 @@ const Input = styled(motion.input)`
   font-size: 16px;
   background-color: transparent;
   border: 1px solid ${(props) => props.theme.white.lighter};
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
 const logoVariants = {
@@ -107,26 +117,7 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("/tv");
-  const inputAnimation = useAnimation();
-  const navAnimation = useAnimation();
-  const {scrollY} = useScroll();
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 80) {
-      navAnimation.start("scroll");
-    } else {
-      navAnimation.start("top");
-    }
-  });
-  const toggleSearch = () => {
-    if (searchOpen) {
-      // trigger the close animation
-      inputAnimation.start({scaleX: 0});
-    } else {
-      // trigger the open animation
-      inputAnimation.start({scaleX: 1});
-    }
-    setSearchOpen((prev) => !prev);
-  };
+  const toggleSearch = () => setSearchOpen((prev) => !prev);
 
   return (
     <Nav variants={navVariants} initial={"top"} animate={navAnimation}>
